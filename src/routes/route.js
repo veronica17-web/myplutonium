@@ -34,5 +34,59 @@ router.get('/student-details/:name', function(req, res){
     
     res.send('Dummy response')
 })
+//1
+router.get('/movies',function(req,res){
+  let array =['spiderman','ironman','avengers','hulk','wonder women','captian america']
+  res.send(array)
+})
+//2 and 3
+router.get('/movies/:indexnumbers',function(req,res){
+  let array =['spiderman','ironman','avengers','hulk','wonder women','captian america']
+let indexNO = req.params.indexnumbers
+ if(indexNO<=array.length){
+  res.send(array[indexNO])
+ }else {
+  res.send("index number is not found")
+ }
+})
+ //4
+router.get('/films',function(req,res){
+ let obj= [ {
+  "id": 1,
+   " name": "The Shining"
+   }, {
+   " id": 2,
+    "name": "Incendies"
+   }, {
+    "id": 3,
+   " name":" Rang de Basanti"
+   }, {
+    "id": 4,
+    "name": "Finding Nemo"
+   }]
+   res.send(obj)
+})
 
+ //5
+router.get('/films/:filmId',function(req,res){
+  let indexno = req.params.filmId
+  let obj= [ {
+   "id": 1,
+    " name": "The Shining"
+    }, {
+    " id": 2,
+     "name": "Incendies"
+    }, {
+     "id": 3,
+    " name":" Rang de Basanti"
+    }, {
+     "id": 4,
+     "name": "Finding Nemo"
+    }]
+    if(indexno<=obj.length){
+      res.send(obj[indexno])
+    }else{
+      res.send("‘No movie exists with this id")
+    }
+ })
 module.exports = router;
