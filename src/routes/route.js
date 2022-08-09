@@ -69,12 +69,12 @@ router.get('/films',function(req,res){
 
  //5
 router.get('/films/:filmId',function(req,res){
-  let indexno = req.params.filmId
+  
   let obj= [ {
    "id": 1,
     " name": "The Shining"
     }, {
-    " id": 2,
+    "id": 2,
      "name": "Incendies"
     }, {
      "id": 3,
@@ -83,10 +83,15 @@ router.get('/films/:filmId',function(req,res){
      "id": 4,
      "name": "Finding Nemo"
     }]
-    if(indexno<=obj.length){
-      res.send(obj[indexno])
-    }else{
-      res.send("‘No movie exists with this id")
-    }
- })
+    let indexno = req.params.filmId
+    console.log(indexno)
+for(i=0;i<obj.length;i++){
+    let films = obj[i]
+    console.log(films)
+    if(films.id==indexno){
+        return res.send(films)
+    } 
+    }return res.send("id is invalid")
+
+})
 module.exports = router;
