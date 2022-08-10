@@ -1,5 +1,7 @@
+
 const express = require('express');
 const router = express.Router();
+
 
 router.get('/students/:name', function(req, res) {
     let studentName = req.params.name
@@ -68,6 +70,76 @@ router.post("/test-post-4", function(req, res) {
     let ele= req.body.element
     arr.push(ele)
     res.send(  { msg: arr , status: true }  )
+})
+let players =
+   [
+       {
+           "name": "manish",
+           "dob": "1/1/1995",
+           "gender": "male",
+           "city": "jalandhar",
+           "sports": [
+               "swimming"
+           ]
+       },
+       {
+           "name": "gopal",
+           "dob": "1/09/1995",
+           "gender": "male",
+           "city": "delhi",
+           "sports": [
+               "soccer"
+           ],
+       },
+       {
+           "name": "lokesh",
+           "dob": "1/1/1990",
+           "gender": "male",
+           "city": "mumbai",
+           "sports": [
+               "soccer"
+           ],
+       },
+   ]
+
+//    router.post('/players', function (req, res) {
+   
+// for(i=0;i<players.length;i++){
+//     let data = players[i]
+// if(data.name == req.body.name)
+
+//   return res.send({msg : "please give unique name"})
+// }
+// players.push(req.body)
+// res.send(players)
+// })
+  
+
+router.post('/players',function(req,res){
+    let newplayer = req.body
+    let newplayername = req.body.name
+    let repeatedname =false
+    for(i=0;i<players.length;i++){
+        if(players[i].name == newplayername) {
+            repeatedname =true
+           break;
+        }
+    }
+    if(repeatedname){
+     res.send({msg: "no"})
+    }else{
+        players.push(newplayer)
+        res.send(players)
+    }
+    
+})
+
+
+router.post('/quary',function(req,res){
+let myarr =[1,2,53,3414,34511,324,114]
+    let input = req.query.input
+    let finalarr = myarr.filter(x=>x>input)
+    res.send({data:finalarr})
 })
 
 module.exports = router;
