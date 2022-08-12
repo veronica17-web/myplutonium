@@ -102,37 +102,37 @@ let players =
        },
    ]
 
-//    router.post('/players', function (req, res) {
+   router.post('/players', function (req, res) {
    
-// for(i=0;i<players.length;i++){
-//     let data = players[i]
-// if(data.name == req.body.name)
+for(i=0;i<players.length;i++){
+    let data = players[i]
+if(data.name == req.body.name)
 
-//   return res.send({msg : "please give unique name"})
-// }
-// players.push(req.body)
-// res.send(players)
-// })
+  return res.send({msg : "please give unique name"})
+}
+players.push(req.body)
+res.send(players)
+})
   
 
-router.post('/players',function(req,res){
-    let newplayer = req.body
-    let newplayername = req.body.name
-    let repeatedname =false
-    for(i=0;i<players.length;i++){
-        if(players[i].name == newplayername) {
-            repeatedname =true
-           break;
-        }
-    }
-    if(repeatedname){
-     res.send({msg: "no"})
-    }else{
-        players.push(newplayer)
-        res.send(players)
-    }
+// router.post('/players',function(req,res){
+//     let newplayer = req.body
+//     let newplayername = req.body.name
+//     let repeatedname =false
+//     for(i=0;i<players.length;i++){
+//         if(players[i].name == newplayername) {
+//             repeatedname =true
+//            break;
+//         }
+//     }
+//     if(repeatedname){
+//      res.send({msg: "no"})
+//     }else{
+//         players.push(newplayer)
+//         res.send(players)
+//     }
     
-})
+// })
 
 
 router.post('/quary',function(req,res){
@@ -142,4 +142,45 @@ let myarr =[1,2,53,3414,34511,324,114]
     res.send({data:finalarr})
 })
 
+
+//take input in queryparams as votingage.. and for all the people above that age, change votingstatus
+// to true also return an array consisting  of only the person that cas vote
+let person =[
+    {
+        "name" : "PK",
+      "age" : 10,
+      voyingStatus : false
+    } ,{
+        "name" : "SK",
+      "age" : 20,
+      voyingStatus : false
+    } ,{
+        "name" : "AA",
+      "age" : 70,
+      voyingStatus : false
+    },{
+        "name" : "SC",
+      "age" : 5,
+      voyingStatus : false
+    } ,{
+        "name" : "HO",
+      "age" : 40,
+      voyingStatus : false
+    }
+]
+//get query param from postman of voting age 
+//if voting age is above or equal to params then the votingstatus is true
+//create an array eligibletoVOte push the person how are eligible
+router.post('/eligibleToVote',function(req,res){
+    let votingAge= req.query.votingAge
+   
+   for(i=0;i<person.length;i++){
+    if(person[i].age>=votingAge){
+     person[i].voyingStatus=true   
+    }
+
+}
+let newarr=person.filter(x=>x.age>=votingAge)
+  res.send(newarr)
+})
 module.exports = router;
