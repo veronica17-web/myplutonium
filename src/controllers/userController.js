@@ -7,7 +7,7 @@ const createUser= async function (req, res) {
 }
 
 const getUsersData= async function (req, res) {
-    let allUsers= await UserModel.find()
+    let allUsers= await UserModel.findOne()
     res.send({msg: allUsers})
 }
 
