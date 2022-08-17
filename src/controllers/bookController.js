@@ -19,7 +19,7 @@ const bookModel = require("../models/bookModel")
     let getbooksinyr = async function(req,res){
         let yr =req.body.year
       
-       let  booksOnYr = await bookModel.find({year :yr})
+       let  booksOnYr = await bookModel.find({year: {$eq : yr}})
         res.send({data:booksOnYr})
     }
 
@@ -36,7 +36,7 @@ res.send({data:dataINR})
 }
 
 let randomBooks = async function(req,res){
-    let books = await bookModel.find({stockAvailable : true,totalPages:{$gt :500}})
+    let books = await bookModel.find({$or:[{stockAvailable : true},{totalPages:{$gt :500}}]})
     res.send({data:books})
 }
 
