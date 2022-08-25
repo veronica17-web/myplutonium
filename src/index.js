@@ -20,7 +20,15 @@ mongoose.connect("mongodb+srv://functionup-cohort:G0Loxqc9wFEGyEeJ@cluster0.rzot
 //         next();
 //   }
 //   );
-  
+let assignment = function(req,res,next){
+  let currentDate = new  Date()
+  let ip = req.ip
+  let url = req.originalUrl
+  //console.log(`${currentDate}  ${ip}  ${url}`)
+  console.log(currentDate , ip ,url)
+  next()
+    }
+  app.use(assignment)
 
 app.use('/', route);
 
