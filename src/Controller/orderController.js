@@ -22,52 +22,28 @@ if(header =="true"){
   res.send({msg:saveDate})
 }
 else if(header =="false"){
-let fetchbalance = await userModel.find().select({balance:1,_id:0})
-let fetechprice = await productModel.find().select({price:1,_id:0})
-
-
-console.log("balance====>"+fetchbalance["balance"])
-
-console.log("price====>"+fetechprice)
-if(fetechprice > fetchbalance){
-    res.send({msg:"balance is low"})
-}else{ 
-    let newbalance = fetchbalance.balance-fetechprice.price 
-    await userModel.findByIdAndUpdate({_id:validateUser},{$set:{balance:newbalance}})
-    req.body.isFreeAppUser = false
-
-    let userdata = req.body
-    let saveDate = await orderModel.create(userdata)
-    res.send({msg:saveDate})
-
-}
-
-}
-}
-
-
-
-
-
-
-
-
-
-
-
-// let orderUpdate = async function(req,res){
-//     let header = req.headers['isfreeappuser']
-//    // let validateUser =req.body.userId
-
+  let fetchbalance = await userModel.findById(validateUser).select({balance:1,_id:0})
+  let fetechprice = await productModel.findById(validateProduct).select({price:1,_id:0})
   
-//     // let orderValue = await orderModel.updateMany(
-//     //     {header},{$set:{isFreeAppUser:true,amount :0}},{new:true})
-//     //     if(header == true){res.send({msg:orderValue})}
-//     //       else{
-//     //       let userbalance = await userModel.find().select({balance:1 ,_id:0})
-//     //       console.log(userbalance)
-//     //       } 
-                   
-// }
-//module.exports.orderUpdate=orderUpdate
+  
+  console.log("balance====>"+fetchbalance.balance)
+  
+  console.log("price====>"+fetechprice.price)
+  if(fetechprice.price> fetchbalance.balance){
+      res.send({msg:"balance is low"})
+  }else{ 
+      let newbalance = fetchbalance.balance-fetechprice.price 
+      await userModel.findByIdAndUpdate({_id:validateUser},{$set:{balance:newbalance}})
+      req.body.isFreeAppUser = false
+      req.body.amount = fetechprice.price
+      let userdata = req.body
+      let saveDate = await orderModel.create(userdata)
+      res.send({msg:saveDate})
+  
+  } 
+
+}
+}
+
+
 module.exports.createOrder=createOrder 
