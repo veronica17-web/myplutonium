@@ -34,7 +34,7 @@ const loginUser = async function (req, res) {
   let token = jwt.sign(
     {
       userId: user._id.toString(),
-      batch: "thorium",
+      batch: "plutonium",
       organisation: "FunctionUp",
     },
     "functionup-plutonium-very-very-secret-key"
@@ -49,8 +49,8 @@ const getUserData = async function (req, res) {
 
   //If no token is present in the request header return error. This means the user is not logged in.
   if (!token) return res.send({ status: false, msg: "token must be present" });
-
-  console.log(token);
+ 
+  console.log(token);  
 
   // If a token is present then decode the token with verify function
   // verify takes two inputs:
