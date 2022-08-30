@@ -37,7 +37,7 @@ const loginUser = async function (req, res) {
     );
     res.setHeader("x-auth-token", token);
     res.status(200).send({ status: true, data: token });
-  } catch (error) {
+  } catch (err) {
     console.log("This is the error :", err.message)
     res.status(500).send({ msg: "Error", error: err.message })
   }
